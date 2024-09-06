@@ -15,7 +15,7 @@ NC='\033[39m'
 
 
 function ctrl_c(){
-    printf "\n\n ${PRed}[*] Going out ...\n"
+    printf "\n\n ${PRed}[*] Going out ...\n ${PWhite}"
     tput cnorm; exit 1
 }
 
@@ -55,7 +55,7 @@ function scanHost (){
     printf "${PPurple}[*] ${PGreen}Host Enumeration, ${POrange}Waiting\n"  
     for ((i =$ipStart; i<$range+1; i++)); do
         local ip="$ipAddress.$i"
-        timeout 1 bash -c "ping -c 1 $ip &>/dev/null" && printf "${PPurple} [✓] ${PBlue} $ip ${POrange} Host active \n" #& #threads
+        timeout 1 bash -c "ping -c 1 $ip &>/dev/null" && printf "${PPurple} [✓] ${PBlue} $ip ${POrange} Host active ${PWhite}\n" #& #threads
         #wait
     done
 }
@@ -69,11 +69,11 @@ function scanPort (){
             if echo "s7v7n" 2>/dev/null > /dev/tcp/"$ipAddress"/"$port"
             then
                 
-                printf "${PPurple} [✓] ${PBlue} $port ${POrange} Port Active\n"
+                printf "${PPurple} [✓] ${PBlue} $port ${POrange} Port Active\n ${PWhite}"
             fi
         done
     else
-        printf "${PRed}[X] Invalid IP address\n"
+        printf "${PRed}[X] Invalid IP address\n ${PWhite}"
         def_help
         exit 1
 
@@ -84,7 +84,7 @@ function scanPort (){
 #Function main
 function def_main(){
     if [[ $# -ne 2 ]]; then
-        printf "${PRed}[X] Error, wrong arguments\n";
+        printf "${PRed}[X] Error, wrong arguments ${PWhite}\n";
         def_help
         exit 1;
     else 
@@ -95,7 +95,7 @@ function def_main(){
             if def_validIp $ipAddress; then
                 scanHost $ipAddress $ip
             else 
-                printf "${PRed}[X] Invalid IP address\n"
+                printf "${PRed}[X] Invalid IP address ${PWhite}\n"
                 def_help
                 exit 1
             fi
