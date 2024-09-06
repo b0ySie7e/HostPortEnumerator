@@ -27,8 +27,8 @@ function def_help(){
     printf "\t-H  : Host scanning\n"
     printf "\t-P  : Port scanning\n"
     printf "\t Example: \n"
-    printf "\t$0 -H ${PCyan}10.10.10.1-254 \t ${PGreen}Active Host \n" 
-    printf "\t$0 -P ${PCyan}10.10.10.10 \t ${PGreen}Active Ports \n"
+    printf "\t$0 -H ${PCyan}10.10.10.1-254 \t ${PGreen}Active Host\n" 
+    printf "\t$0 -P ${PCyan}10.10.10.10 \t ${PGreen}Active Ports ${PWhite}\n"
 }
 
 function def_validIp () {
@@ -52,7 +52,7 @@ function scanHost (){
     local ipStart=$(echo "$ipAddress"| cut -d "-" -f 1| awk '{print $4}' FS=".")
     local length=${#ipAddress}
     local ipAddress=(${ipAddress::l-2})  
-    printf "${PPurple}[*] ${PGreen}Host Enumeration, ${POrange}Waiting\n"  
+    printf "${PPurple}[*] ${PGreen}Host Enumeration, ${POrange}Waiting${PWhite}\n"  
     for ((i =$ipStart; i<$range+1; i++)); do
         local ip="$ipAddress.$i"
         timeout 1 bash -c "ping -c 1 $ip &>/dev/null" && printf "${PPurple} [✓] ${PBlue} $ip ${POrange} Host active ${PWhite}\n" #& #threads
